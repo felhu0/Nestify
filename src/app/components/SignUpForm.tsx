@@ -1,170 +1,84 @@
-"use client";
-
 import Link from "next/link";
 
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { z } from "zod";
-import { useAuth } from "./authProvider";
-import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { addNewUser } from "@/lib/user.db";
-import { MdErrorOutline } from "react-icons/md";
-
-type SignUpFormValues = {
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-};
-
-const formSchema = z.object({
-  email: z.string().email({ message: "You need to enter a valid email" }),
-  firstName: z.string().min(1, { message: "You need to enter a first name" }),
-  lastName: z.string().min(1, { message: "You need to enter a last name" }),
-  password: z.string().min(6, {
-    message: "The password must be at least 6 characters long",
-  }),
-});
-
-export const SignUpForm = () => {
-  const { register } = useAuth();
-  const router = useRouter();
-
-  const form = useForm<SignUpFormValues>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-    },
-  });
-
-  const onSubmit = async (values: SignUpFormValues) => {
-    try {
-      const uid = await register(values);
-      if (!uid) {
-        throw new Error("Registration failed, no user ID returned");
-      }
-      await addNewUser({
-        id: uid,
-        username: `${values.firstName} ${values.lastName}`,
-        name: "",
-        email: values.email,
-        password: values.password,
-        isModerator: false,
-      });
-      router.push("/");
-      console.log("User added successfully");
-    } catch (error) {
-      console.error("Could not add user to database!", error);
-    }
-  };
-
+const SignUpForm = () => {
   return (
-    <Card className="mx-auto max-w-sm">
-      <CardHeader>
-        <CardTitle className="text-xl">Sign Up</CardTitle>
-        <CardDescription>
-          Enter your information to create an account
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="grid gap-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="grid gap-2">
-                <Label htmlFor="first-name">First name</Label>
-                <Input
-                  id="first-name"
-                  placeholder="Max"
-                  required
-                  {...form.register("firstName")}
-                />
-                {form.formState.errors.firstName && (
-                  <span className="text-error text-xs mt-[2px] flex gap-1 items-center">
-                    <MdErrorOutline />
-                    <span className="text-xs">
-                      {form.formState.errors.firstName.message}
-                    </span>
-                  </span>
-                )}
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="last-name">Last name</Label>
-                <Input
-                  id="last-name"
-                  placeholder="Robinson"
-                  required
-                  {...form.register("lastName")}
-                />
-                {form.formState.errors.lastName && (
-                  <span className="text-error text-xs mt-[2px] flex gap-1 items-center">
-                    <MdErrorOutline />
-                    <span className="text-xs">
-                      {form.formState.errors.lastName.message}
-                    </span>
-                  </span>
-                )}
-              </div>
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="m@example.com"
-                required
-                {...form.register("email")}
-              />
-              {form.formState.errors.email && (
-                <span className="text-error text-xs mt-[2px] flex gap-1 items-center">
-                  <MdErrorOutline />
-                  <span className="text-xs">
-                    {form.formState.errors.email?.message}
-                  </span>
-                </span>
-              )}
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                {...form.register("password")}
-              />
-              {form.formState.errors.password && (
-                <span className="text-error text-xs mt-[2px] flex gap-1 items-center">
-                  <MdErrorOutline />
-                  <span className="text-xs">
-                    {form.formState.errors.password.message}
-                  </span>
-                </span>
-              )}
-            </div>
-            <Button type="submit" className="w-full">
-              Create an account
-            </Button>
+    <div className="flex flex-row">
+      <img src="/signupform.png" alt="loginform" className="w-1/2" />
+      <form className="flex flex-col w-1/2 px-32 pt-44">
+        <p className="text-title-sm-desktop pb-10">Register</p>
+        <div className="flex flex-row text-caption-desktop gap-4 pb-4 justify-between">
+          <div className="flex flex-col w-full">
+            <label htmlFor="name" className="pb-2">
+              First Name
+            </label>
+            <input
+              id="email"
+              type="email"
+              placeholder="First Name"
+              className="border-2 rounded-md w-full h-9 cart-outline px-3"
+            />
           </div>
-        </form>
-        <div className="mt-4 text-center text-sm">
-          Already have an account?{" "}
-          <Link href="/log-in" className="underline">
-            Sign in
+          <div className="flex flex-col w-full">
+            <label htmlFor="nema" className="pb-2">
+              Last Name
+            </label>
+            <input
+              id="email"
+              type="email"
+              placeholder="Last Name"
+              className="border-2 rounded-md w-full h-9 cart-outline px-3"
+            />
+          </div>
+        </div>
+        <div className="flex flex-col text-caption-desktop gap-4">
+          <div className="flex flex-col">
+            <label htmlFor="email" className="pb-2">
+              Email Address
+            </label>
+            <input
+              id="email"
+              type="email"
+              placeholder="Email Address"
+              className="border-2 rounded-md w-full h-9 cart-outline px-3"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="password" className="pb-2">
+              Password
+            </label>
+            <input
+              id="password"
+              type="password"
+              placeholder="Password"
+              required
+              className="border-2 rounded-md w-full h-9 cart-outline px-3"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="password" className="pb-2">
+              Confirm Password
+            </label>
+            <input
+              id="password"
+              type="password"
+              placeholder="Confirm Password"
+              required
+              className="border-2 rounded-md w-full h-9 cart-outline px-3"
+            />
+          </div>
+        </div>
+        <button type="submit" className="btn-primary w-full my-10">
+          Create an account
+        </button>
+        <div className=" text-center text-sm">
+          Already a member? <br />
+          <Link href="/sign-in" className="underline">
+            log in
           </Link>
         </div>
-      </CardContent>
-    </Card>
+      </form>
+    </div>
   );
 };
+
+export default SignUpForm;

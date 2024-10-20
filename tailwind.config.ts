@@ -63,10 +63,11 @@ const config: Config = {
   			'body-bold-mobile': ['20px', { lineHeight: '1.5', fontWeight: '600' }],
   			'caption-mobile': ['15px', { lineHeight: '1.5', fontWeight: '400' }],
   			'title-mobile': ['22px', { lineHeight: '1.2', fontWeight: '500' }],
-  			'body-desktop': ['20px', { lineHeight: '1.5', fontWeight: '400' }],
-  			'body-bold-desktop': ['20px', { lineHeight: '1.5', fontWeight: '600' }],
+  			'body-desktop': ['16px', { lineHeight: '1.5', fontWeight: '400' }],
+  			'body-bold-desktop': ['16px', { lineHeight: '1.5', fontWeight: '600' }],
 			'caption-bold-desktop': ['14px', { lineHeight: '1.5', fontWeight: '600' }],
   			'caption-desktop': ['14px', { lineHeight: '1.5', fontWeight: '400' }],
+			'caption-sm-desktop': ['12px', { lineHeight: '1.5', fontWeight: '400' }],
   			'title-desktop': ['32px', { lineHeight: '1.2', fontWeight: '500' }],
 			'title-sm-desktop': ['26px', { lineHeight: '1.2', fontWeight: '600' }]
 			

@@ -11,7 +11,7 @@ import {
 const FilterBar = () => {
   return (
     <div className="flex justify-center border-t-2 pt-2">
-      <div className="flex gap-6 py-4">
+      <div className="flex gap-12 py-4">
         <button className="flex gap-2 text-link items-center btn-primary-outline">
           <Accessibility />
           Accessible

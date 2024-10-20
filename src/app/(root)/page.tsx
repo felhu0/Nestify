@@ -2,6 +2,7 @@ import { CircleUserRound, Search, TreePine } from "lucide-react";
 import FeaturedHomes from "../components/FeaturedHomes";
 import FilterBar from "../components/FilterBar";
 import HeroSection from "../components/HeroSection";
+import Filters from "../components/Filters";
 
 export default function LandingPage() {
   return (
@@ -58,6 +59,7 @@ export default function LandingPage() {
           </div>
         </div>
       </div>
+      <Filters />
     </div>
   );
 }

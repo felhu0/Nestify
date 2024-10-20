@@ -1,7 +1,7 @@
 import Gallery from "@/app/components/Gallery";
 import PropertyDescription from "@/app/components/PropertyDescription";
 
-const DetailsPage = () => {
+const HomeDetailsPage = () => {
   return (
     <div>
       <Gallery />
@@ -9,4 +9,4 @@ const DetailsPage = () => {
     </div>
   );
 };
-export default DetailsPage;
+export default HomeDetailsPage;
