@@ -1,9 +1,11 @@
 import Link from "next/link";
 
-const ReservationBox = () => {
+const ReservationBox = ({ pricePerNight }: { pricePerNight: number }) => {
   return (
     <div className="flex flex-col mt-32 w-[400px] h-fit border-[3px] rounded-md cart-outline py-10 px-10 gap-6">
-      <p className="text-title-sm-desktop pt-4">2 045 (SEK) / night</p>
+      <p className="text-title-sm-desktop pt-4">
+        {pricePerNight} (SEK) / night
+      </p>
       <div className="flex w-full justify-between flex-row flex-wrap pb-4 gap-6 text-caption-desktop">
         <span>
           <p>Check in</p>

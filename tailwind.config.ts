@@ -62,6 +62,7 @@ const config: Config = {
   			'body-mobile': ['20px', { lineHeight: '1.5', fontWeight: '400' }],
   			'body-bold-mobile': ['20px', { lineHeight: '1.5', fontWeight: '600' }],
   			'caption-mobile': ['15px', { lineHeight: '1.5', fontWeight: '400' }],
+			'caption-sm-mobile': ['11px', { lineHeight: '1.5', fontWeight: '400' }],
   			'title-mobile': ['22px', { lineHeight: '1.2', fontWeight: '500' }],
   			'body-desktop': ['16px', { lineHeight: '1.5', fontWeight: '400' }],
   			'body-bold-desktop': ['16px', { lineHeight: '1.5', fontWeight: '600' }],

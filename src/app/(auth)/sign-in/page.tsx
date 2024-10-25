@@ -1,9 +1,7 @@
-import Footer from "@/app/components/Footer";
-import LogInForm from "@/app/components/LogInForm";
-import Navbar from "@/app/components/Navbar";
+import SignInForm from "@/app/components/SignInForm";
 
 const LogInPage = () => {
-  return <LogInForm />;
+  return <SignInForm />;
 };
 
 export default LogInPage;
