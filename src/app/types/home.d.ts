@@ -7,7 +7,7 @@ type HomeCategory =
     | 'Near water'
 
 
-type HomeType = {
+export type HomeType = {
     id: string
     name: string
     accessible: boolean

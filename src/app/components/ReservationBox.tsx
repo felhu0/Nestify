@@ -1,6 +1,36 @@
-import Link from "next/link";
+"use client";
 
-const ReservationBox = ({ pricePerNight }: { pricePerNight: number }) => {
+import Link from "next/link";
+import { useState } from "react";
+
+const ReservationBox = ({
+  pricePerNight,
+  homeId,
+}: {
+  pricePerNight: number;
+  homeId: string;
+}) => {
+  const [checkIn, setCheckIn] = useState("");
+  const [checkOut, setCheckOut] = useState("");
+  const [guests, setGuests] = useState(1);
+
+  const calculateNights = () => {
+    const inDate = new Date(checkIn);
+    const outDate = new Date(checkOut);
+    const diffTime = Math.abs(outDate.getTime() - inDate.getTime());
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+  };
+
+  const calculateTotalPrice = () => {
+    const nights = calculateNights();
+    return nights * guests * pricePerNight;
+  };
+
+  const totalAmount = calculateTotalPrice();
+
+  const isReserveDisabled = !checkIn || !checkOut || guests < 1;
+
   return (
     <div className="flex flex-col mt-32 w-[400px] h-fit border-[3px] rounded-md cart-outline py-10 px-10 gap-6">
       <p className="text-title-sm-desktop pt-4">
@@ -11,7 +41,9 @@ const ReservationBox = ({ pricePerNight }: { pricePerNight: number }) => {
           <p>Check in</p>
           <span>
             <input
-              type="text"
+              type="date"
+              value={checkIn}
+              onChange={(e) => setCheckIn(e.target.value)}
               className="border-2 rounded-md w-36 h-8 cart-outline"
             />
           </span>
@@ -20,7 +52,9 @@ const ReservationBox = ({ pricePerNight }: { pricePerNight: number }) => {
           <p>Check out</p>
           <span>
             <input
-              type="text"
+              type="date"
+              value={checkOut}
+              onChange={(e) => setCheckOut(e.target.value)}
               className="border-2 rounded-md w-36 h-8 cart-outline"
             />
           </span>
@@ -29,17 +63,32 @@ const ReservationBox = ({ pricePerNight }: { pricePerNight: number }) => {
           <p>No.of guests</p>
           <span>
             <input
-              type="text"
+              type="number"
+              min="1"
+              value={guests}
+              onChange={(e) => setGuests(Number(e.target.value))}
               className="border-2 rounded-md w-36 h-8 cart-outline"
             />
           </span>
         </span>
       </div>
-      <p className="pt-6 text-caption-bold-desktop">Total amount (SEK)</p>
-      <Link href="/reservation-details/reservationId">
-        {" "}
-        <button className="btn-primary w-full">Reserve</button>
-      </Link>
+      <p className="pt-6 text-caption-bold-desktop">
+        Total amount {isReserveDisabled ? "0" : totalAmount} (SEK)
+      </p>
+      {isReserveDisabled ? (
+        <button className="btn-disabled w-full" disabled>
+          Reserve
+        </button>
+      ) : (
+        <Link
+          href={{
+            pathname: `/reservation-details/${homeId}`,
+            query: { checkIn, checkOut, guests },
+          }}
+        >
+          <button className="btn-primary w-full">Reserve</button>
+        </Link>
+      )}
     </div>
   );
 };

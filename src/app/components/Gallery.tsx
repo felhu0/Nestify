@@ -1,4 +1,8 @@
-const Gallery = ({ images }: { images: string[] }) => {
+"use client";
+
+const Gallery = ({ fetchHome }: { fetchHome: HomeType | null }) => {
+  const images = fetchHome?.imageUrl || [];
+
   if (!images || images.length === 0) return null;
   return (
     <div className="flex flex-row justify-center items-center gap-10 my-12">

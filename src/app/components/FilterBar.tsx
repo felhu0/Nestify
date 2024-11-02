@@ -11,16 +11,13 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import Filters from "./Filters";
+import FeaturedHomes from "./FeaturedHomes";
 
-const FilterBar = ({
-  applyFilters,
-  filteredHomesCount,
-}: {
-  applyFilters: (filters: string[]) => void;
-  filteredHomesCount: number;
-}) => {
+const FilterBar = ({ initialHome = [] }: { initialHome: HomeType[] }) => {
+  const [homes, setHomes] = useState<HomeType[]>(initialHome);
   const [selectedFilter, setSelectedFilter] = useState<string | null>(null);
   const [showFilters, setShowFilters] = useState(false);
+  const [filteredHomes, setFilteredHomes] = useState<HomeType[]>(initialHome);
 
   const toggleFilters = () => {
     setShowFilters(!showFilters);
@@ -30,14 +27,41 @@ const FilterBar = ({
     setShowFilters(false);
   };
 
-  // Hanterar filterknapparnas klick
   const handleFilterClick = (filter: string) => {
-    const newFilters = selectedFilter === filter ? [] : [filter];
-    setSelectedFilter(newFilters[0] || null);
-    applyFilters(newFilters);
+    const newFilter = selectedFilter === filter ? null : filter;
+    setSelectedFilter(newFilter);
+    applyFilters(newFilter ? [newFilter] : []);
   };
 
-  // Dynamisk klass baserat på om filtret är valt
+  // Filtreringsfunktion baserad på vald filter
+  const applyFilters = (filters: string[]) => {
+    if (filters.length === 0) {
+      setFilteredHomes(homes);
+    } else {
+      const filtered = homes.filter((home) =>
+        filters.every((filter) => {
+          switch (filter) {
+            case "Accessible":
+              return home.accessible;
+            case "Spacious":
+              return home.spacious;
+            case "Apartment":
+              return home.apartment;
+            case "Pet friendly":
+              return home.petFriendly;
+            case "Close to nature":
+              return home.closeToNature;
+            case "Near water":
+              return home.nearWater;
+            default:
+              return true;
+          }
+        })
+      );
+      setFilteredHomes(filtered);
+    }
+  };
+
   const getButtonClass = (filter: string) => {
     return selectedFilter === filter
       ? "btn-icon-secondary"
@@ -119,12 +143,14 @@ const FilterBar = ({
             <Filters
               closeFilters={closeFilters}
               applyFilters={applyFilters}
-              filteredHomesCount={filteredHomesCount}
+              filteredHomesCount={filteredHomes.length}
             />
           </div>
         </div>
       )}
+      <FeaturedHomes homes={filteredHomes} />
     </div>
   );
 };
+
 export default FilterBar;

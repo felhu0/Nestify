@@ -9,8 +9,12 @@ import {
   Waves,
 } from "lucide-react";
 import Link from "next/link";
+import Loading from "./Loading";
 
-const FeaturedHomes = ({ homes }: { homes: HomeType[] }) => {
+const FeaturedHomes = ({ homes = [] }: { homes?: HomeType[] }) => {
+  if (!homes || homes.length === 0) {
+    return <Loading />;
+  }
   return (
     <div className="flex flex-col justify-center mx-4 sm:mx-10 md:mx-20 p-6 md:p-12">
       <div className="flex flex-col m-4 text-center md:text-left">
@@ -52,4 +56,5 @@ const FeaturedHomes = ({ homes }: { homes: HomeType[] }) => {
     </div>
   );
 };
+
 export default FeaturedHomes;

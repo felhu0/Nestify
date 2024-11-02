@@ -204,7 +204,7 @@ body {
     background-color: var(--disabled);
     color: var(--text-secondary);
     padding: 8px 20px;
-    width: fit-content;
+    /* width: fit-content; */
     border-radius: 8px;
     cursor: not-allowed;
   }
