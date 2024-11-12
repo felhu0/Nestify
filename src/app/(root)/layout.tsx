@@ -1,5 +1,3 @@
-import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
 import "../globals.css";
 import { Inter } from "next/font/google";
 import AuthContextProvider from "./providers/AuthProvider";
@@ -17,9 +15,7 @@ export default function RootLayout({
       <body className="flex flex-col min-h-screen">
         <AuthContextProvider>
           <Toaster />
-          <Navbar />
           <main className="flex-grow">{children}</main>
-          <Footer />
         </AuthContextProvider>
       </body>
     </html>

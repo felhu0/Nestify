@@ -71,14 +71,23 @@ const SignUpForm = () => {
   };
 
   return (
-    <div className="flex flex-row">
-      <img src="/signupform.png" alt="loginform" className="w-1/2" />
+    <div className="flex flex-col md:flex-row md:h-screen">
+      <Link href="/" className="block md:hidden px-6 pt-4">
+        <img src="/nestify-logo.png" alt="Nestify Logo" className="w-32" />
+      </Link>
+      <img
+        src="/signupform.png"
+        alt="loginform"
+        className="w-full md:w-1/2 object-cover hidden md:block"
+      />
       <form
-        className="flex flex-col w-1/2 px-32 pt-44"
+        className="flex flex-col w-full md:w-1/2 px-8 md:px-20 pt-7 md:pt-20"
         onSubmit={form.handleSubmit(onSubmit)}
       >
-        <p className="text-title-sm-desktop pb-10">Register</p>
-        <div className="flex flex-row text-caption-desktop gap-4 pb-4 justify-between">
+        <p className="text-title-sm-desktop pb-10 text-center md:text-left">
+          Register
+        </p>
+        <div className="flex flex-col md:flex-row text-body-bold-mobile md:text-caption-desktop gap-2 md:gap-4 pb-4 justify-between">
           <div className="flex flex-col w-full">
             <label htmlFor="firstName" className="pb-2">
               First Name
@@ -114,7 +123,7 @@ const SignUpForm = () => {
             )}
           </div>
         </div>
-        <div className="flex flex-col text-caption-desktop gap-4">
+        <div className="flex flex-col text-body-bold-mobile md:text-caption-desktop gap-2 md:gap-4">
           <div className="flex flex-col">
             <label htmlFor="email" className="pb-2">
               Email Address
@@ -169,7 +178,7 @@ const SignUpForm = () => {
             )}
           </div>
         </div>
-        <button type="submit" className="btn-primary w-full my-10">
+        <button type="submit" className="btn-primary w-full my-6 md:my-10">
           Create an account
         </button>
         <div className=" text-center text-sm">

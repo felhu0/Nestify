@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
     try {
-      const { totalAmount, reservationId, checkIn, checkOut, guests, userId } = await req.json();
+      const { totalAmount, reservationId, checkIn, checkOut, guests, userId, homeName, homeImage } = await req.json();
   
       // Create Stripe Checkout session
       const session = await stripe.checkout.sessions.create({
@@ -25,8 +25,8 @@ export async function POST(req: NextRequest) {
         mode: "payment",
         success_url: `${req.nextUrl.origin}/payment-success`,
         cancel_url: `${req.nextUrl.origin}/reservation-details/${reservationId}`,
-        client_reference_id: userId, // Pass the user ID here
-        metadata: { reservationId, checkIn, checkOut, guests, totalAmount, userId },
+        client_reference_id: userId, 
+        metadata: { reservationId, checkIn, checkOut, guests, totalAmount, userId, homeName, homeImage },
       });
   
     

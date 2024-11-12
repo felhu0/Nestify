@@ -1,5 +1,6 @@
 import Gallery from "@/app/components/Gallery";
 import PropertyDescription from "@/app/components/PropertyDescription";
+import { HomeType } from "@/app/types/home";
 
 import { fetchHomeId } from "@/lib/homes.db";
 

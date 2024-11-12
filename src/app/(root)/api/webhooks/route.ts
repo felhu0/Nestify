@@ -8,9 +8,11 @@ type SessionMetadata = {
     reservationId: string;
     checkIn: string;
     checkOut: string;
-    guests: string;
+    guests: number;
     totalAmount: string;
     userId: string;
+    homeName: string;
+    homeImage: string;
   };
   
 
@@ -29,9 +31,9 @@ export const POST = async (req: NextRequest) => {
             const session = event.data.object as Stripe.Checkout.Session;
             console.log("[webhooks_POST]", session);
 
-            const metadata = session.metadata as SessionMetadata;
+            const metadata = session.metadata as unknown as SessionMetadata;
 
-            const { reservationId, checkIn, checkOut, guests, totalAmount, userId } = metadata;
+            const { reservationId, checkIn, checkOut, guests, totalAmount, userId, homeName, homeImage } = metadata;
 
             try {
                 // Spara session-info till Firestore
@@ -39,6 +41,7 @@ export const POST = async (req: NextRequest) => {
                 await setDoc(checkoutDoc, {
                   sessionId: session.id,
                   reservationId,
+                  homeName,
                   checkIn,
                   checkOut,
                   guests,
@@ -46,6 +49,7 @@ export const POST = async (req: NextRequest) => {
                   userId,
                   status: "completed", 
                   createdAt: new Date(),
+                  homeImage
                 });
                 console.log("Checkout session saved to Firestore:", session.id); 
                 return new NextResponse("Order created", { status: 200 });

@@ -1,32 +1,39 @@
-import { doc, getDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../firebase.config";
 import { CheckoutType } from "@/app/types/booking";
 
-export async function fetchBooking(userId: string) : Promise<CheckoutType | null> {
-    try {
-      const bookingDocRef = doc(db, "checkouts", userId);
-    const bookingDoc = await getDoc(bookingDocRef);
-    if (bookingDoc.exists()) {
-        const data = bookingDoc.data();
-        if (data) {
-          return {
-            id: bookingDoc.id,
-            sessionId: data.sessionId,
-            reservationId: data.reservationId,
-            checkIn: data.checkIn,
-            checkOut: data.checkOut,
-            guests: data.guests,
-            totalAmount: data.totalAmount,
-            userId: data.userId,
-            status: data.status,
-            createdAt: data.createdAt.toDate(), // Assuming createdAt is a Firestore Timestamp
-          } as CheckoutType;
-        }
-  }
-    return null;
-    } catch (error) {
-      console.error('Failed to fetch home id:', (error as Error).message);
-      return null;
+export async function fetchBooking(userId: string): Promise<CheckoutType[] | null> {
+  try {
+    const bookingCollectionRef = collection(db, "checkouts");
+    const q = query(bookingCollectionRef, where("userId", "==", userId)); // Använd en fråga om userId är ett fält
+    const querySnapshot = await getDocs(q);
+
+    if (!querySnapshot.empty) {
+      const bookings: CheckoutType[] = [];
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        bookings.push({
+          sessionId: data.sessionId,
+          reservationId: data.reservationId,
+          homeName: data.homeName,
+          checkIn: data.checkIn,
+          checkOut: data.checkOut,
+          guests: data.guests,
+          totalAmount: data.totalAmount,
+          userId: data.userId,
+          status: data.status,
+          createdAt: data.createdAt.toDate(),
+          homeImage: data.homeImage, 
+        });
+      });
+      return bookings;
+    } else {
+      console.log("No booking documents found for user ID:", userId);
     }
-    
+
+    return null;
+  } catch (error) {
+    console.error("Failed to fetch booking:", error);
+    return null;
   }
+}

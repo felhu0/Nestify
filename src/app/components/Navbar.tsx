@@ -2,17 +2,18 @@
 
 import { Calendar, CircleUserRound, Search } from "lucide-react";
 import Link from "next/link";
-import { useAuth } from "../(root)/providers/AuthProvider";
+
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { signOut } from "firebase/auth";
 import { auth } from "../../../firebase.config";
 import Loading from "./Loading";
+import { useAuth } from "../(root)/providers/AuthProvider";
 
 const Navbar = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const { user } = useAuth();
+  const { user, authLoaded } = useAuth();
 
   const getInitials = (name: string) => {
     return name
@@ -26,6 +27,8 @@ const Navbar = () => {
     setLoading(true);
     try {
       await signOut(auth);
+      await fetch("/api/sessionLogout", { method: "POST" });
+      window.location.href = "/";
     } catch (error) {
       console.error("Could not log out", error);
     } finally {
@@ -34,7 +37,7 @@ const Navbar = () => {
     }
   };
 
-  if (loading) return <Loading />;
+  if (!authLoaded || loading) return <Loading />;
   return (
     <div>
       {/* Desktop Navbar */}
@@ -47,18 +50,10 @@ const Navbar = () => {
               className="w-40 h-auto object-contain"
             />
           </Link>
-          <div>
-            {/* <Link href="/profile">
-              <button className="flex gap-1 text-link items-center btn-icon-primary">
-                <Calendar className="w-4" />
-                profile
-              </button>
-            </Link> */}
-          </div>
           {!user ? (
             <div>
               <Link href="/sign-in">
-                <button className="flex gap-1 text-link items-center btn-icon-primary">
+                <button className="flex gap-1 text-link items-center btn-icon-primary px-3 py-1">
                   <CircleUserRound className="w-5" />
                   Log in
                 </button>
@@ -69,7 +64,7 @@ const Navbar = () => {
               <div>
                 <Link href="/">
                   <button
-                    className="flex gap-1 text-link items-center btn-icon-primary"
+                    className="flex gap-1 text-link items-center btn-icon-primary px-3 py-1"
                     onClick={handleLogout}
                   >
                     <CircleUserRound className="w-5" />
@@ -77,8 +72,8 @@ const Navbar = () => {
                   </button>
                 </Link>
               </div>
-              <Link href="/profile">
-                <button className="flex gap-1 text-link items-center btn-icon-primary">
+              <Link href={`/profile/${user.id}`}>
+                <button className="flex gap-1 text-link items-center btn-icon-primary px-3 py-1">
                   <Calendar className="w-4" />
                   My account
                 </button>
@@ -113,16 +108,16 @@ const Navbar = () => {
         {!user ? (
           <div>
             <Link href="/sign-in">
-              <button className="flex text-link items-center btn-icon-primary ml-4">
-                <CircleUserRound className="w-6" />
+              <button className="flex text-link items-center btn-icon-primary ml-4 h-9 px-1">
+                <CircleUserRound className="w-7" />
               </button>
             </Link>
           </div>
         ) : (
           <div>
-            <Link href="/profile">
-              <button className="btn-user-primary ml-4 h-9">
-                <span className="text-caption-mobile p-0.5">
+            <Link href={`/profile/${user.id}`}>
+              <button className="btn-icon-primary ml-4 h-8 p-2">
+                <span className="flex text-center text-caption-mobile">
                   {getInitials(user.username)}
                 </span>
               </button>

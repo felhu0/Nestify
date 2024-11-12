@@ -7,11 +7,13 @@
   --secondary: #2E4CAA;
   --text-primary: #0B132B;
   --text-secondary: #F0F0F0;
+  --text-third: #507AFF;
   --primary-hover: #0038EB;
   --secondary-hover: #182758;
   --warning: #D94832;
   --warning-hover: #8A291A;
   --disabled: #B8C9FF;
+  --primary-background: #ffffff;
   --secondary-background: #F5F5F5
 }
 
@@ -34,7 +36,10 @@ body {
   .text-balance {
     text-wrap: balance;
   }
-
+  
+  .bg-primary {
+    background-color: var(--primary-background);
+  }
   /* Secondary Background */
   .bg-secondary {
     background-color: var(--secondary-background);
@@ -55,6 +60,11 @@ body {
   /* Secondary text */
   .text-secondary {
     color: var(--text-secondary);
+  }
+  
+  /* Third text */
+  .text-third {
+    color: var(--text-third);
   }
 
   .text-warning {
@@ -85,6 +95,16 @@ body {
     background-color: var(--primary-hover);
   }
 
+  .btn-selected {
+    background-color: var(--primary);
+    color: #fff;
+    padding: 6px;
+    width: fit-content;
+    border-radius: 9999px;
+    cursor: pointer;
+    border: 2px solid var(--primary-dark); /* Ändra border för att markera */
+}
+
   .btn-primary-outline {
     background-color: transparent;
     color: var(--text-primary);
@@ -108,7 +128,7 @@ body {
   .btn-icon-primary {
     background-color: var(--primary);
     color: var(--text-secondary);
-    padding: 4px 12px;
+    /* padding: 4px 12px; */
     width: fit-content;
     border-radius: 20px;
     cursor: pointer;
@@ -135,7 +155,7 @@ body {
   .btn-user-primary {
     background-color: var(--primary);
     color: var(--text-secondary);
-    padding: 6px 6px;
+    /* padding: 6px 6px; */
     width: fit-content;
     border-radius: 9999px;
     cursor: pointer;

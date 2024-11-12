@@ -9,6 +9,10 @@ const config: Config = {
   ],
   theme: {
   	extend: {
+		screens: {
+			'custom-xs': '450px', 
+			'custom-md': '1040px',
+		  },
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
@@ -59,11 +63,16 @@ const config: Config = {
 			heading: ['50px', { lineHeight: '1.5', fontWeight: '100' }],
 			subheading: ['30px', { lineHeight: '1.5', fontWeight: '600' }],
   			link: ['14px', { lineHeight: '1.2', fontWeight: '500' }],
-  			'body-mobile': ['20px', { lineHeight: '1.5', fontWeight: '400' }],
-  			'body-bold-mobile': ['20px', { lineHeight: '1.5', fontWeight: '600' }],
-  			'caption-mobile': ['15px', { lineHeight: '1.5', fontWeight: '400' }],
-			'caption-sm-mobile': ['11px', { lineHeight: '1.5', fontWeight: '400' }],
+			'link-bold-mobile': ['14px', { lineHeight: '1.5', fontWeight: '600' }],
+  			'body-mobile': ['12px', { lineHeight: '1.5', fontWeight: '400' }],
+  			'body-bold-mobile': ['12px', { lineHeight: '1.5', fontWeight: '600' }],
+			'caption-bold-mobile': ['11px', { lineHeight: '1.5', fontWeight: '600' }],
+  			'caption-mobile': ['10px', { lineHeight: '1.5', fontWeight: '400' }],
+			'caption-sm-bold-mobile': ['9px', { lineHeight: '1.5', fontWeight: '600' }],
+			'caption-sm-mobile': ['9px', { lineHeight: '1.5', fontWeight: '400' }],
   			'title-mobile': ['22px', { lineHeight: '1.2', fontWeight: '500' }],
+			'title-bold-mobile': ['22px', { lineHeight: '1.2', fontWeight: '600' }],
+			'title-sm-bold-mobile': ['16px', { lineHeight: '1.2', fontWeight: '600' }],
   			'body-desktop': ['16px', { lineHeight: '1.5', fontWeight: '400' }],
   			'body-bold-desktop': ['16px', { lineHeight: '1.5', fontWeight: '600' }],
 			'caption-bold-desktop': ['14px', { lineHeight: '1.5', fontWeight: '600' }],

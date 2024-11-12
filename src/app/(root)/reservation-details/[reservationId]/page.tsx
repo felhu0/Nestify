@@ -1,7 +1,7 @@
 "use client";
 
 import { doc, getDoc } from "firebase/firestore";
-import { SquarePen } from "lucide-react";
+import { ArrowBigLeft, SquarePen } from "lucide-react";
 import Link from "next/link";
 import { useParams, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -11,6 +11,7 @@ import Loading from "@/app/components/Loading";
 import { loadStripe } from "@stripe/stripe-js";
 import { getAuth } from "firebase/auth";
 import { getUserById } from "@/lib/user.db";
+import { HomeType } from "@/app/types/home";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || ""
@@ -76,6 +77,8 @@ const ReservationDetailsPage = () => {
           checkOut,
           guests,
           userId: fetchedUser?.id,
+          homeName: home?.name,
+          homeImage: home?.imageUrl[0],
         }),
       });
 
@@ -93,37 +96,77 @@ const ReservationDetailsPage = () => {
   if (!reservationId) return <Loading />;
 
   return (
-    <div className="flex justify-center mt-16">
-      <div className="flex flex-col gap-14 w-fit">
-        <h1 className="text-title-sm-desktop">Your trip</h1>
-        <div className="flex gap-10 justify-center">
-          <img
-            src={home?.imageUrl[0]}
-            alt={home?.name}
-            className="w-96 h-64 object-cover"
-          />
-          <span className="flex flex-col justify-between">
-            <p className="text-body-bold-desktop">{home?.name}</p>
-            <span className="flex flex-col">
-              <p className="text-body-desktop">
+    <div className="flex justify-center mt-16 p-1 py-8">
+      <div className="absolute top-10 left-2 z-10 block md:hidden">
+        <Link href="/">
+          <button className="p-1 rounded-full btn-icon-primary text-link ">
+            <ArrowBigLeft className="w-6" />
+          </button>
+        </Link>
+      </div>
+      <div className="relative flex flex-col gap-2 pt-8 md:p-4 md:gap-14 w-full md:w-fit">
+        <h1 className="text-title-sm-bold-mobile md:text-title-sm-desktop pl-8 md:pl-0 pb-2">
+          Your trip
+        </h1>
+        <div className="flex flex-col md:flex-row flex-wrap gap-4 md:gap-10 md:justify-center items-center md:items-start bg-secondary md:bg-primary p-5 md:p-0">
+          <div className="flex gap-3 items-center">
+            <img
+              src={home?.imageUrl[0]}
+              alt={home?.name}
+              className="w-24 max-w-xs aspect-square object-cover md:w-96 md:h-64"
+            />
+            <p className="text-link-bold-mobile md:text-body-bold-desktop block md:hidden items-center">
+              {home?.name}
+            </p>
+          </div>
+          <div className="block md:hidden">
+            <p className="text-body-mobile md:text-link-bold-mobile">
+              Price per night: {home?.pricePerNight} SEK
+            </p>
+            <p className="text-body-mobile md:text-body-desktop">
+              {" "}
+              Selected dates: {checkIn} - {checkOut}
+            </p>
+            <Link href={`/home-details/${reservationId}`} className="ml-10 ">
+              <button className="flex gap-2 text-link items-center justify-center btn-outline w-full">
+                <SquarePen className="w-4" />
+                Edit
+              </button>
+            </Link>
+          </div>
+
+          <span className="flex flex-col justify-between hidden md:block ">
+            <p className="text-link-bold-mobile md:text-body-bold-desktop pb-4">
+              {home?.name}
+            </p>
+            <span className="flex flex-col gap-3">
+              <p className="text-body-mobile md:text-link-bold-mobile">
                 Price per night: {home?.pricePerNight} SEK
               </p>
-              <p className="text-body-desktop">
+              <p className="text-body-mobile md:text-link-bold-mobile">
                 {" "}
                 Selected dates: {checkIn} - {checkOut}
               </p>
-              <p className="text-body-desktop">Guests: {guests}</p>
             </span>
 
-            <p className="text-body-desktop pt-16">Total: {totalAmount} SEK</p>
+            <p className="text-body-bold-mobile md:text-link-bold-mobile pt-16">
+              Total:{" "}
+              <span className="text-link-bold-mobile">{totalAmount} SEK</span>
+            </p>
           </span>
-          <Link href={`/home-details/${reservationId}`} className="ml-10">
-            <button className="flex gap-2 text-link items-center btn-icon-secondary">
+          <Link
+            href={`/home-details/${reservationId}`}
+            className="ml-10 hidden md:block"
+          >
+            <button className="flex gap-2 text-link items-center btn-outline w-full md:btn-icon-secondary md:w-fit">
               <SquarePen className="w-4" />
               Edit
             </button>
           </Link>
         </div>
+        <p className="text-body-bold-mobile md:text-body-desktop pt-28 md:pt-16 block md:hidden text-center">
+          Total: <span className="text-body-mobile">{totalAmount} SEK</span>
+        </p>
         {user ? (
           <button onClick={handlePayment} className="btn-primary w-full">
             Request to book

@@ -3,10 +3,12 @@
 import { User } from "@/app/types/user";
 import {
   createUserWithEmailAndPassword,
+  getAuth,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   updateProfile,
   UserCredential,
+  User as FirebaseUser, // Import the User type from firebase/auth
 } from "firebase/auth";
 
 import {
@@ -29,7 +31,7 @@ type AuthValues = {
 };
 
 type AuthContextType = {
-  user: User | null;
+  user: FirebaseUser | null; // Use FirebaseUser type
   authLoaded: boolean;
   register: (values: AuthValues) => Promise<string | void>;
   login: (values: AuthValues) => Promise<void>;
@@ -42,10 +44,40 @@ export const AuthContext = createContext<AuthContextType | undefined>(
 const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [authLoaded, setAuthLoaded] = useState<boolean>(false);
+  const auth = getAuth();
+
+  // const refreshSession = async (currentUser: FirebaseUser) => {
+  //   const currentTime = Date.now();
+  //   const sessionExpiry = Number(localStorage.getItem("sessionExpiry"));
+
+  //   // Refresh only if less than 1 minute remains
+  //   if (!sessionExpiry || currentTime > sessionExpiry - 60 * 1000) {
+  //     try {
+  //       const idToken = await currentUser.getIdToken(true);
+  //       const response = await fetch("/api/sessionLogin", {
+  //         method: "POST",
+  //         headers: { "Content-Type": "application/json" },
+  //         body: JSON.stringify({ idToken }),
+  //       });
+
+  //       if (response.ok) {
+  //         // Update expiry time in local storage (5 minutes from now)
+  //         const newExpiry = Date.now() + 5 * 60 * 1000;
+  //         localStorage.setItem("sessionExpiry", newExpiry.toString());
+  //         // console.log("Session refreshed for user:", currentUser.uid);
+  //       } else {
+  //         console.error("Could not refresh the session");
+  //       }
+  //     } catch (error) {
+  //       console.error("Failed to refresh the session:", error);
+  //     }
+  //   }
+  // };
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (_user) => {
       if (_user) {
+        // console.log("User authenticated:", _user.uid);
         const userDoc = await getDoc(doc(db, "users", _user.uid));
         const userData = userDoc.data();
         const user = {
@@ -56,7 +88,11 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
           password: "",
         };
         setUser(user);
+
+        // Refresh session cookie for the authenticated user
+        // await refreshSession(_user);
       } else {
+        console.log("No user authenticated"); // Add logging
         setUser(null);
       }
       setAuthLoaded(true);
@@ -111,11 +147,11 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
       if (!userCredential.user) {
         throw new Error("Something went wrong!. Please try again.");
       }
-      console.log("userCredential:", userCredential);
-      console.log("userID:", userCredential.user.uid);
+      // console.log("userCredential:", userCredential);
+      // console.log("userID:", userCredential.user.uid);
 
       const token = await userCredential.user.getIdToken();
-      console.log("token:", token);
+      // console.log("token:", token);
 
       toast.success("Logged in successfully", { id: toastId });
     } catch (error: any) {

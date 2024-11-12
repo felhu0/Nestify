@@ -32,47 +32,48 @@ const ReservationBox = ({
   const isReserveDisabled = !checkIn || !checkOut || guests < 1;
 
   return (
-    <div className="flex flex-col mt-32 w-[400px] h-fit border-[3px] rounded-md cart-outline py-10 px-10 gap-6">
-      <p className="text-title-sm-desktop pt-4">
+    <div className="flex flex-col w-auto h-fit md:border-[3px] rounded-md md:cart-outline p-4 md:p-10 gap-6 bg-secondary md:bg-primary">
+      <p className="text-title-sm-desktop hidden md:block">
         {pricePerNight} (SEK) / night
       </p>
-      <div className="flex w-full justify-between flex-row flex-wrap pb-4 gap-6 text-caption-desktop">
+      <div className="flex w-full justify-between flex-row md:flex-wrap pb-4 gap-2 md:gap-6 text-body-bold-mobile md:text-caption-desktop">
         <span>
-          <p>Check in</p>
+          <p className="pb-1">Check in</p>
           <span>
             <input
               type="date"
               value={checkIn}
               onChange={(e) => setCheckIn(e.target.value)}
-              className="border-2 rounded-md w-36 h-8 cart-outline"
+              className="border-2 rounded-md w-24 md:w-36 h-8 cart-outline "
             />
           </span>
         </span>
         <span>
-          <p>Check out</p>
+          <p className="pb-1">Check out</p>
           <span>
             <input
               type="date"
               value={checkOut}
               onChange={(e) => setCheckOut(e.target.value)}
-              className="border-2 rounded-md w-36 h-8 cart-outline"
+              className="border-2 rounded-md w-24 md:w-36 h-8 cart-outline"
             />
           </span>
         </span>
         <span>
-          <p>No.of guests</p>
+          <p className="hidden md:block pb-1">No.of guests</p>
+          <p className="block md:hidden pb-1">Guests</p>
           <span>
             <input
               type="number"
               min="1"
               value={guests}
               onChange={(e) => setGuests(Number(e.target.value))}
-              className="border-2 rounded-md w-36 h-8 cart-outline"
+              className="border-2 rounded-md w-10 md:w-36 h-8 cart-outline"
             />
           </span>
         </span>
       </div>
-      <p className="pt-6 text-caption-bold-desktop">
+      <p className="pt-6 text-caption-bold-desktop hidden md:block">
         Total amount {isReserveDisabled ? "0" : totalAmount} (SEK)
       </p>
       {isReserveDisabled ? (

@@ -1,6 +1,7 @@
 export type CheckoutType = {
     sessionId: string;
     reservationId: string;
+    homeName: string;
     checkIn: string;
     checkOut: string;
     guests: number;
@@ -8,5 +9,6 @@ export type CheckoutType = {
     userId: string;
     status: string;
     createdAt: Date;
+    homeImage?: string;
 }
 

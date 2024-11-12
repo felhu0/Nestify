@@ -12,6 +12,7 @@ import {
 import { useState } from "react";
 import Filters from "./Filters";
 import FeaturedHomes from "./FeaturedHomes";
+import { HomeType } from "../types/home";
 
 const FilterBar = ({ initialHome = [] }: { initialHome: HomeType[] }) => {
   const [homes, setHomes] = useState<HomeType[]>(initialHome);
@@ -33,7 +34,6 @@ const FilterBar = ({ initialHome = [] }: { initialHome: HomeType[] }) => {
     applyFilters(newFilter ? [newFilter] : []);
   };
 
-  // Filtreringsfunktion baserad på vald filter
   const applyFilters = (filters: string[]) => {
     if (filters.length === 0) {
       setFilteredHomes(homes);
@@ -62,6 +62,10 @@ const FilterBar = ({ initialHome = [] }: { initialHome: HomeType[] }) => {
     }
   };
 
+  const updateFilters = (filters: string[]) => {
+    applyFilters(filters);
+  };
+
   const getButtonClass = (filter: string) => {
     return selectedFilter === filter
       ? "btn-icon-secondary"
@@ -71,67 +75,81 @@ const FilterBar = ({ initialHome = [] }: { initialHome: HomeType[] }) => {
   return (
     <div className="relative">
       <div className="flex justify-center border-b-2 md:border-t-2 md:border-b-0 pt-2">
-        <div className="flex flex-wrap justify-center gap-4 md:gap-4 lg:gap-12 py-4">
+        <div className="flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-5 lg:gap-6 py-4">
           <button
-            className={`flex gap-2 text-link items-center ${getButtonClass(
+            className={`flex gap-2 text-link items-center  ${getButtonClass(
               "Accessible"
-            )}`}
+            )} w-6 h-8 rounded-full`}
             onClick={() => handleFilterClick("Accessible")}
           >
-            <Accessibility />
-            <span className="hidden md:block">Accessible</span>
+            <Accessibility className="w-4 md:w-5" />
+            <span className="hidden md:block text-caption-bold-mobile custom-md:text-link">
+              Accessible
+            </span>
           </button>
           <button
             className={`flex gap-2 text-link items-center ${getButtonClass(
               "Spacious"
-            )}`}
+            )} w-6 h-8 rounded-full`}
             onClick={() => handleFilterClick("Spacious")}
           >
-            <House className="md:w-5 w-6" />
-            <span className="hidden md:block">Spacious</span>
+            <House className="w-4 md:w-5" />
+            <span className="hidden md:block text-caption-bold-mobile custom-md:text-link">
+              Spacious
+            </span>
           </button>
           <button
             className={`flex gap-2 text-link items-center ${getButtonClass(
               "Apartment"
-            )}`}
+            )} w-6 h-8 rounded-full`}
             onClick={() => handleFilterClick("Apartment")}
           >
-            <Building className="md:w-5 w-6" />
-            <span className="hidden md:block">Apartment</span>
+            <Building className="w-4 md:w-5" />
+            <span className="hidden md:block text-caption-bold-mobile custom-md:text-link">
+              Apartment
+            </span>
           </button>
           <button
             className={`flex gap-2 text-link items-center ${getButtonClass(
               "Pet friendly"
-            )}`}
+            )} w-6 h-8 rounded-full`}
             onClick={() => handleFilterClick("Pet friendly")}
           >
-            <PawPrint className="md:w-5 w-6" />
-            <span className="hidden md:block">Pet friendly</span>
+            <PawPrint className="w-4 md:w-5" />
+            <span className="hidden md:block text-caption-bold-mobile custom-md:text-link">
+              Pet friendly
+            </span>
           </button>
           <button
             className={`flex gap-2 text-link items-center ${getButtonClass(
               "Close to nature"
-            )}`}
+            )} w-6 h-8 rounded-full`}
             onClick={() => handleFilterClick("Close to nature")}
           >
-            <TreePine className="md:w-5 w-6" />
-            <span className="hidden md:block">Close to nature</span>
+            <TreePine className="w-4 md:w-5" />
+            <span className="hidden md:block text-caption-bold-mobile custom-md:text-link">
+              Close to nature
+            </span>
           </button>
           <button
             className={`flex gap-2 text-link items-center ${getButtonClass(
               "Near water"
-            )}`}
+            )} w-6 h-8 rounded-full`}
             onClick={() => handleFilterClick("Near water")}
           >
-            <Waves className="md:w-5 w-6" />
-            <span className="hidden md:block">Near water</span>
+            <Waves className="w-4 md:w-5" />
+            <span className="hidden md:block text-caption-bold-mobile custom-md:text-link">
+              Near water
+            </span>
           </button>
           <button
-            className="flex gap-2 text-link items-center btn-icon-primary h-10"
+            className="flex gap-2 text-link items-center btn-icon-primary px-3 md:py-1 sm:h-8"
             onClick={toggleFilters}
           >
-            <SlidersHorizontal className="h-5" />
-            <span className="hidden md:block">All filters</span>
+            <SlidersHorizontal className="w-3 md:w-4 " />
+            <span className="hidden md:block text-caption-bold-mobile custom-md:text-link">
+              All filters
+            </span>
           </button>
         </div>
       </div>
@@ -144,6 +162,7 @@ const FilterBar = ({ initialHome = [] }: { initialHome: HomeType[] }) => {
               closeFilters={closeFilters}
               applyFilters={applyFilters}
               filteredHomesCount={filteredHomes.length}
+              updateFilters={updateFilters}
             />
           </div>
         </div>

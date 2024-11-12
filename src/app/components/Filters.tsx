@@ -13,36 +13,35 @@ const Filters = ({
   closeFilters,
   applyFilters,
   filteredHomesCount,
+  updateFilters,
 }: {
   closeFilters: () => void;
   applyFilters: (filters: string[]) => void;
   filteredHomesCount: number;
+  updateFilters: (filters: string[]) => void;
 }) => {
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
 
-  // Funktion för att hantera val av filter
   const toggleFilter = (filter: string) => {
-    if (selectedFilters.includes(filter)) {
-      setSelectedFilters(selectedFilters.filter((f) => f !== filter));
-    } else {
-      setSelectedFilters([...selectedFilters, filter]);
-    }
+    const newFilters = selectedFilters.includes(filter)
+      ? selectedFilters.filter((f) => f !== filter)
+      : [...selectedFilters, filter];
+
+    setSelectedFilters(newFilters);
+    updateFilters(newFilters);
   };
 
-  // Kontroll för att ändra stil baserat på om filtret är valt eller inte
   const getButtonStyle = (filter: string) => {
     return selectedFilters.includes(filter)
       ? "btn-icon-secondary"
       : "border-2 rounded-full px-2 py-1";
   };
 
-  // Funktion för att tillämpa filtren när användaren klickar på "Show places"
   const handleApplyFilters = () => {
     applyFilters(selectedFilters);
     closeFilters();
   };
 
-  // Funktion för att återställa alla filter
   const resetFilters = () => {
     setSelectedFilters([]);
   };

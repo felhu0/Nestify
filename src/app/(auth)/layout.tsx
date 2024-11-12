@@ -18,7 +18,9 @@ export default function AuthLayout({
       <body className="flex flex-col min-h-screen">
         <AuthContextProvider>
           <Toaster />
-          <Navbar />
+          <div className="hidden md:block">
+            <Navbar />
+          </div>
           <main className="flex-grow">{children}</main>
         </AuthContextProvider>
       </body>
