@@ -8,7 +8,7 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
   UserCredential,
-  User as FirebaseUser, // Import the User type from firebase/auth
+  // User as FirebaseUser, // Import the User type from firebase/auth
 } from "firebase/auth";
 
 import {
@@ -31,7 +31,7 @@ type AuthValues = {
 };
 
 type AuthContextType = {
-  user: FirebaseUser | null; // Use FirebaseUser type
+  user: User | null; // Use FirebaseUser type
   authLoaded: boolean;
   register: (values: AuthValues) => Promise<string | void>;
   login: (values: AuthValues) => Promise<void>;
