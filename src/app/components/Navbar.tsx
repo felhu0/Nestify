@@ -4,7 +4,7 @@ import { Calendar, CircleUserRound, Search } from "lucide-react";
 import Link from "next/link";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { signOut } from "firebase/auth";
 import { auth } from "../../../firebase.config";
 import Loading from "./Loading";
@@ -14,6 +14,7 @@ const Navbar = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const { user, authLoaded } = useAuth();
+  const [isSessionValid, setIsSessionValid] = useState(true); // Håller reda på sessionstatus
 
   const getInitials = (name: string) => {
     return name
@@ -23,11 +24,25 @@ const Navbar = () => {
       .toUpperCase();
   };
 
+  // Kontrollera sessionens giltighet vid sidladdning
+  useEffect(() => {
+    const sessionExpiry = localStorage.getItem("sessionExpiry");
+    const currentTime = Date.now();
+
+    if (sessionExpiry && currentTime > Number(sessionExpiry)) {
+      handleLogout(); // Logga ut om sessionen har gått ut
+      setIsSessionValid(false); // Uppdatera till ogiltig session
+    } else {
+      setIsSessionValid(true); // Sessionen är fortfarande giltig
+    }
+  }, []);
+
   const handleLogout = async () => {
     setLoading(true);
     try {
       await signOut(auth);
       await fetch("/api/sessionLogout", { method: "POST" });
+      localStorage.removeItem("sessionExpiry"); // Rensa session utgångstid från lokal lagring
       window.location.href = "/";
     } catch (error) {
       console.error("Could not log out", error);
@@ -50,7 +65,7 @@ const Navbar = () => {
               className="w-40 h-auto object-contain"
             />
           </Link>
-          {!user ? (
+          {!isSessionValid || !user ? (
             <div>
               <Link href="/sign-in">
                 <button className="flex gap-1 text-link items-center btn-icon-primary px-3 py-1">
@@ -105,7 +120,7 @@ const Navbar = () => {
             className="w-full h-full p-2 pl-2 focus:outline-none placeholder"
           />
         </div>
-        {!user ? (
+        {!isSessionValid || !user ? (
           <div>
             <Link href="/sign-in">
               <button className="flex text-link items-center btn-icon-primary ml-4 h-9 px-1">

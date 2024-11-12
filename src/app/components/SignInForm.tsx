@@ -40,11 +40,22 @@ const SignInForm = () => {
       const idToken = await auth.currentUser?.getIdToken(true);
 
       if (idToken) {
-        await fetch("/api/sessionLogin", {
+        const response = await fetch("/api/sessionLogin", {
           method: "POST",
           body: JSON.stringify({ idToken }),
           headers: { "Content-Type": "application/json" },
         });
+
+        // Kontrollera om session-cookie skapades framgångsrikt
+        if (response.ok) {
+          // Spara sessionens utgångstid i localStorage (5 minuter från nu)
+          const sessionExpiry = Date.now() + 5 * 60 * 1000; // 5 minutes from now
+          localStorage.setItem("sessionExpiry", sessionExpiry.toString());
+
+          // Convert to readable date format
+          const readableExpiry = new Date(sessionExpiry).toLocaleString();
+          console.log("Session expiry date and time:", readableExpiry);
+        }
       }
 
       // router.push("/");
