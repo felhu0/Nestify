@@ -11,7 +11,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { getAuth } from "firebase/auth";
 import { getUserById } from "@/lib/user.db";
 import { HomeType } from "@/app/types/home";
-import { useAuth } from "../providers/AuthProvider";
+import { useAuth } from "../../providers/AuthProvider";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || ""
