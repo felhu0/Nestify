@@ -6,8 +6,8 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   updateProfile,
+  User as FirebaseUser,
   UserCredential,
-  // User as FirebaseUser, // Import the User type from firebase/auth
 } from "firebase/auth";
 
 import {
@@ -19,7 +19,6 @@ import {
 } from "react";
 import toast from "react-hot-toast";
 import { auth } from "../../../../firebase.config";
-// import { doc, getDoc } from "firebase/firestore";
 
 type AuthValues = {
   id: string;
@@ -30,7 +29,7 @@ type AuthValues = {
 };
 
 type AuthContextType = {
-  user: User | null; // Use FirebaseUser type
+  user: FirebaseUser | null;
   authLoaded: boolean;
   register: (values: AuthValues) => Promise<string | void>;
   login: (values: AuthValues) => Promise<void>;
@@ -41,7 +40,7 @@ export const AuthContext = createContext<AuthContextType | undefined>(
 );
 
 const AuthContextProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<FirebaseUser | null>(null);
   const [authLoaded, setAuthLoaded] = useState<boolean>(false);
   // const auth = getAuth();
 
@@ -58,7 +57,7 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
           email: _user.email || "",
           password: "",
         };
-        setUser(user);
+        setUser(_user);
 
         // Refresh session cookie for the authenticated user
         // await refreshSession(_user);

@@ -6,17 +6,18 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { signOut } from "firebase/auth";
-import { auth } from "../../../firebase.config";
 import Loading from "./Loading";
 import { useAuth } from "../(root)/providers/AuthProvider";
+import { auth } from "../../../firebase.config";
 
 const Navbar = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const { user, authLoaded } = useAuth();
-  const [isSessionValid, setIsSessionValid] = useState(true); // Håller reda på sessionstatus
+  const [isSessionValid, setIsSessionValid] = useState(true);
 
-  const getInitials = (name: string) => {
+  const getInitials = (name: string | null | undefined) => {
+    if (!name) return "";
     return name
       .split(" ")
       .map((n) => n[0])
@@ -87,7 +88,7 @@ const Navbar = () => {
                   </button>
                 </Link>
               </div>
-              <Link href={`/profile/${user.id}`}>
+              <Link href={`/profile/${user.uid}`}>
                 <button className="flex gap-1 text-link items-center btn-icon-primary px-3 py-1">
                   <Calendar className="w-4" />
                   My account
@@ -130,10 +131,10 @@ const Navbar = () => {
           </div>
         ) : (
           <div>
-            <Link href={`/profile/${user.id}`}>
+            <Link href={`/profile/${user.uid}`}>
               <button className="btn-icon-primary ml-4 h-8 p-2">
                 <span className="flex text-center text-caption-mobile">
-                  {getInitials(user.username)}
+                  {getInitials(user.displayName)}
                 </span>
               </button>
             </Link>
