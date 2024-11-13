@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
     //   return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     // }
 
-    // // Ensure totalAmount is a positive number
+    // Ensure totalAmount is a positive number
     // if (totalAmount <= 0) {
     //   return NextResponse.json({ error: "Invalid total amount" }, { status: 400 });
     // }

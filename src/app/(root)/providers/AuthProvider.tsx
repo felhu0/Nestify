@@ -19,7 +19,7 @@ import {
   useState,
 } from "react";
 import toast from "react-hot-toast";
-import { auth, db } from "../../../../firebase.config";
+import { db } from "../../../../firebase.config";
 import { doc, getDoc } from "firebase/firestore";
 
 type AuthValues = {
@@ -79,7 +79,7 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
       if (_user) {
         // console.log("User authenticated:", _user.uid);
         const userDoc = await getDoc(doc(db, "users", _user.uid));
-        const userData = userDoc.data();
+        // const userData = userDoc.data();
         const user = {
           id: _user.uid,
           username: _user.displayName || "",
@@ -150,7 +150,7 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
       // console.log("userCredential:", userCredential);
       // console.log("userID:", userCredential.user.uid);
 
-      const token = await userCredential.user.getIdToken();
+      // const token = await userCredential.user.getIdToken();
       // console.log("token:", token);
 
       toast.success("Logged in successfully", { id: toastId });

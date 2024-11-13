@@ -3,8 +3,6 @@ import AuthContextProvider from "../../providers/AuthProvider";
 import { Toaster } from "react-hot-toast";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
-import Link from "next/link";
-import { ArrowBigLeft } from "lucide-react";
 
 export default function ReservationDetailsLayout({
   children,

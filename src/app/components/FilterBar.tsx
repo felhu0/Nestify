@@ -15,7 +15,7 @@ import FeaturedHomes from "./FeaturedHomes";
 import { HomeType } from "../types/home";
 
 const FilterBar = ({ initialHome = [] }: { initialHome: HomeType[] }) => {
-  const [homes, setHomes] = useState<HomeType[]>(initialHome);
+  const [homes] = useState<HomeType[]>(initialHome);
   const [selectedFilter, setSelectedFilter] = useState<string | null>(null);
   const [showFilters, setShowFilters] = useState(false);
   const [filteredHomes, setFilteredHomes] = useState<HomeType[]>(initialHome);

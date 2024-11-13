@@ -2,7 +2,6 @@
 
 import { doc, getDoc } from "firebase/firestore";
 import { ArrowBigLeft, SquarePen } from "lucide-react";
-import Link from "next/link";
 import { useParams, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { db } from "../../../../../firebase.config";
@@ -12,6 +11,7 @@ import { getAuth } from "firebase/auth";
 import { getUserById } from "@/lib/user.db";
 import { HomeType } from "@/app/types/home";
 import { useAuth } from "../../providers/AuthProvider";
+import Link from "next/link";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || ""

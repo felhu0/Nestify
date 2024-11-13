@@ -58,7 +58,7 @@ const SignInForm = () => {
         }
       }
 
-      // router.push("/");
+      router.push("/");
     } catch (error) {
       console.error("Login failed", error);
     }
