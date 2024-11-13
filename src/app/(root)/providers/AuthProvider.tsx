@@ -97,11 +97,14 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
       toast.success("Account created successfully", { id: toastId });
 
       return userCredential.user.uid;
-    } catch (error: any) {
-      console.log(error.message);
-      console.log(error.code);
-      const message = error.code.split("/")[1].replace(/-/g, " ");
-      toast.error(message || error.message, { id: toastId });
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.log(error.message);
+        const message = error.message.split("/")[1].replace(/-/g, " ");
+        toast.error(message || error.message, { id: toastId });
+      } else {
+        toast.error("An unknown error occurred", { id: toastId });
+      }
     }
   };
 
@@ -125,10 +128,14 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
       // console.log("token:", token);
 
       toast.success("Logged in successfully", { id: toastId });
-    } catch (error: any) {
-      console.log(error.message);
-      const message = error.code.split("/")[1].replace(/-/g, " ");
-      toast.error(message || error.message, { id: toastId });
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.log(error.message);
+        const message = error.message.split("/")[1].replace(/-/g, " ");
+        toast.error(message || error.message, { id: toastId });
+      } else {
+        toast.error("An unknown error occurred", { id: toastId });
+      }
     }
   };
 

@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { addNewUser } from "@/lib/user.db";
 import { useAuth } from "../(root)/providers/AuthProvider";
+import { getAuth } from "firebase/auth";
 
 type SignUpFormValues = {
   id: string;
@@ -53,6 +54,7 @@ const SignUpForm = () => {
   const onSubmit = async (values: SignUpFormValues) => {
     try {
       const uid = await register(values);
+
       if (!uid) {
         throw new Error("Registration failed, no user ID returned");
       }
@@ -63,7 +65,30 @@ const SignUpForm = () => {
         email: values.email,
         password: values.password,
       });
-      router.push("/");
+
+      // Hämta ID-token och skicka till servern för att skapa session-cookie
+      const auth = getAuth();
+      const idToken = await auth.currentUser?.getIdToken(true);
+
+      if (idToken) {
+        const response = await fetch("/api/sessionLogin", {
+          method: "POST",
+          body: JSON.stringify({ idToken }),
+          headers: { "Content-Type": "application/json" },
+        });
+
+        // Kontrollera om session-cookie skapades framgångsrikt
+        if (response.ok) {
+          // Spara sessionens utgångstid i localStorage (5 minuter från nu)
+          const sessionExpiry = Date.now() + 5 * 60 * 1000; // 5 minutes from now
+          localStorage.setItem("sessionExpiry", sessionExpiry.toString());
+
+          // Convert to readable date format
+          const readableExpiry = new Date(sessionExpiry).toLocaleString();
+          console.log("Session expiry date and time:", readableExpiry);
+        }
+      }
+      // router.push("/");
       console.log("User added successfully");
     } catch (error) {
       console.error("Could not add user to database!", error);
