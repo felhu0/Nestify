@@ -42,7 +42,8 @@ const Navbar = () => {
     setLoading(true);
     try {
       await signOut(auth);
-      await fetch("/api/sessionLogout", { method: "POST" });
+      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+      await fetch(`${baseUrl}/api/sessionLogout`, { method: "POST" });
       localStorage.removeItem("sessionExpiry"); // Rensa session utgångstid från lokal lagring
       window.location.href = "/";
     } catch (error) {
