@@ -1,6 +1,6 @@
 "use client";
 
-import { User } from "@/app/types/user";
+// import { User } from "@/app/types/user";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -50,13 +50,14 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
         console.log("User authenticated:", _user.uid);
         // const userDoc = await getDoc(doc(db, "users", _user.uid));
         // const userData = userDoc.data();
-        const user = {
-          id: _user.uid,
-          username: _user.displayName || "",
-          name: "",
-          email: _user.email || "",
-          password: "",
-        };
+        // const user = {
+        //   id: _user.uid,
+        //   username: _user.displayName || "",
+        //   name: "",
+        //   email: _user.email || "",
+        //   password: "",
+        // };
+        // console.log("user:", user);
         setUser(_user);
 
         // Refresh session cookie for the authenticated user

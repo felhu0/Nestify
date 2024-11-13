@@ -88,7 +88,7 @@ const SignUpForm = () => {
           console.log("Session expiry date and time:", readableExpiry);
         }
       }
-      // router.push("/");
+      router.push("/");
       console.log("User added successfully");
     } catch (error) {
       console.error("Could not add user to database!", error);
