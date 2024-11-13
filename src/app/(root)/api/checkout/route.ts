@@ -5,7 +5,16 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
     try {
       const { totalAmount, reservationId, checkIn, checkOut, guests, userId, homeName, homeImage } = await req.json();
-  
+
+    //    // Validate incoming data
+    // if (!totalAmount || !reservationId || !checkIn || !checkOut || !guests || !userId || !homeName || !homeImage) {
+    //   return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+    // }
+
+    // // Ensure totalAmount is a positive number
+    // if (totalAmount <= 0) {
+    //   return NextResponse.json({ error: "Invalid total amount" }, { status: 400 });
+    // }
       // Create Stripe Checkout session
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
