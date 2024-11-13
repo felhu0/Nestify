@@ -77,7 +77,6 @@ const SignUpForm = () => {
           headers: { "Content-Type": "application/json" },
         });
 
-        // Kontrollera om session-cookie skapades framgångsrikt
         if (response.ok) {
           // Spara sessionens utgångstid i localStorage (5 minuter från nu)
           const sessionExpiry = Date.now() + 5 * 60 * 1000; // 5 minutes from now
