@@ -3,7 +3,6 @@
 import { User } from "@/app/types/user";
 import {
   createUserWithEmailAndPassword,
-  getAuth,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   updateProfile,
@@ -19,8 +18,8 @@ import {
   useState,
 } from "react";
 import toast from "react-hot-toast";
-import { db } from "../../../../firebase.config";
-import { doc, getDoc } from "firebase/firestore";
+import { auth } from "../../../../firebase.config";
+// import { doc, getDoc } from "firebase/firestore";
 
 type AuthValues = {
   id: string;
@@ -44,41 +43,13 @@ export const AuthContext = createContext<AuthContextType | undefined>(
 const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [authLoaded, setAuthLoaded] = useState<boolean>(false);
-  const auth = getAuth();
-
-  // const refreshSession = async (currentUser: FirebaseUser) => {
-  //   const currentTime = Date.now();
-  //   const sessionExpiry = Number(localStorage.getItem("sessionExpiry"));
-
-  //   // Refresh only if less than 1 minute remains
-  //   if (!sessionExpiry || currentTime > sessionExpiry - 60 * 1000) {
-  //     try {
-  //       const idToken = await currentUser.getIdToken(true);
-  //       const response = await fetch("/api/sessionLogin", {
-  //         method: "POST",
-  //         headers: { "Content-Type": "application/json" },
-  //         body: JSON.stringify({ idToken }),
-  //       });
-
-  //       if (response.ok) {
-  //         // Update expiry time in local storage (5 minutes from now)
-  //         const newExpiry = Date.now() + 5 * 60 * 1000;
-  //         localStorage.setItem("sessionExpiry", newExpiry.toString());
-  //         // console.log("Session refreshed for user:", currentUser.uid);
-  //       } else {
-  //         console.error("Could not refresh the session");
-  //       }
-  //     } catch (error) {
-  //       console.error("Failed to refresh the session:", error);
-  //     }
-  //   }
-  // };
+  // const auth = getAuth();
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (_user) => {
       if (_user) {
-        // console.log("User authenticated:", _user.uid);
-        const userDoc = await getDoc(doc(db, "users", _user.uid));
+        console.log("User authenticated:", _user.uid);
+        // const userDoc = await getDoc(doc(db, "users", _user.uid));
         // const userData = userDoc.data();
         const user = {
           id: _user.uid,
