@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(request: NextRequest) {
+export async function POST() {
   // Ta bort session-cookien
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   
