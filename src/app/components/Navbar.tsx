@@ -145,6 +145,7 @@ const Navbar = ({
             placeholder="Search..."
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleSearch()}
             className="w-full h-full p-2 pl-2 focus:outline-none placeholder"
           />
         </div>
