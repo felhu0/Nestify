@@ -36,7 +36,7 @@ const PropertyDescription = ({
   }, []);
 
   return (
-    <div className="flex flex-col md:flex-row flex-wrap px-4 md:px-24 pt-6 md:pt-12 items-center md:justify-between gap-2 md:gap-6 pb-4">
+    <div className="flex flex-col md:flex-row flex-wrap px-4 md:px-40 pt-6 md:pt-12 items-center md:justify-between gap-2 md:gap-6 pb-4">
       <div className="flex flex-col w-full md:flex-1 max-w-[420px] min-w-[280px] px-4">
         <h1 className="text-title-sm-bold-mobile sm:text-title-mobile md:text-subheading">
           {name}, {location}
