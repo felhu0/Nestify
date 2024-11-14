@@ -8,7 +8,10 @@ import "slick-carousel/slick/slick-theme.css";
 import Link from "next/link";
 import { ArrowBigLeft } from "lucide-react";
 
-const Gallery = ({ fetchHome }: { fetchHome: HomeType | null }) => {
+type GalleryProps = {
+  fetchHome: HomeType | null;
+};
+const Gallery = ({ fetchHome }: GalleryProps) => {
   const images = fetchHome?.imageUrl || [];
   const [isMobile, setIsMobile] = useState(false);
 

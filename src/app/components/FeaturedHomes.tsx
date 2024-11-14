@@ -42,9 +42,9 @@ const FeaturedHomes = ({ homes = [] }: { homes?: HomeType[] }) => {
               />
             </div>
             <div className="flex px-2 md:px-6 py-6 pt-4 ">
-              <div className="flex flex-col items-start sm:gap-2">
+              <div className="flex flex-col items-start sm:gap-2 gap-1">
                 <p className="text-caption-mobile sm:text-caption-desktop ">
-                  {home.name}
+                  {home.name}, {home.location}
                 </p>
                 <span className="flex items-center gap-1">
                   {home.accessible && (

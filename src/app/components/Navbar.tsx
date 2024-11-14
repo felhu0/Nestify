@@ -10,11 +10,22 @@ import Loading from "./Loading";
 import { useAuth } from "../(root)/providers/AuthProvider";
 import { auth } from "../../../firebase.config";
 
-const Navbar = () => {
+type NavbarProps = {
+  searchTerm?: string;
+  onSearchTermChange?: (term: string) => void;
+  applyFilters?: (filters: string[]) => void;
+};
+
+const Navbar = ({
+  searchTerm = "",
+  onSearchTermChange,
+  applyFilters,
+}: NavbarProps) => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const { user, authLoaded } = useAuth();
   const [isSessionValid, setIsSessionValid] = useState(true);
+  const [searchInput, setSearchInput] = useState(searchTerm || "");
 
   const getInitials = (name: string | null | undefined) => {
     if (!name) return "";
@@ -51,6 +62,15 @@ const Navbar = () => {
     } finally {
       setLoading(false);
       router.push("/");
+    }
+  };
+
+  const handleSearch = () => {
+    if (onSearchTermChange && applyFilters) {
+      onSearchTermChange(searchInput); // Update the searchTerm in parent component
+      applyFilters([searchInput]); // Apply the filter based on the updated term
+      setSearchInput(""); // Clear the search input field after searching
+      router.push("/"); // Navigate to root to trigger search filter on main page
     }
   };
 
@@ -98,12 +118,16 @@ const Navbar = () => {
             </div>
           )}
         </div>
+
         <div className="flex items-center p-3">
           <div className="flex items-center border rounded-md h-10 w-72 ring-2 ring-primary focus-within:ring-2 focus-within:ring-secondary">
             <Search className="w-5 h-5 ml-2 text-primary" />
             <input
               type="text"
               placeholder="Search..."
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleSearch()}
               className="w-full h-full p-2 pl-2 focus:outline-none placeholder"
             />
           </div>
@@ -119,6 +143,8 @@ const Navbar = () => {
           <input
             type="text"
             placeholder="Search..."
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
             className="w-full h-full p-2 pl-2 focus:outline-none placeholder"
           />
         </div>
