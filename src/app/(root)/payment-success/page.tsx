@@ -10,7 +10,7 @@ const PaymentSuccessPage = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       router.push("/");
-    }, 10000); // 10000 milliseconds = 10 seconds
+    }, 5000); // 1000 milliseconds = 5 seconds
 
     return () => clearTimeout(timer);
   }, [router]);
