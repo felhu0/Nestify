@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  Accessibility,
-  CircleUserRound,
-  House,
-  PawPrint,
-  TreePine,
-  Waves,
-} from "lucide-react";
+import { Accessibility, House, PawPrint, TreePine, Waves } from "lucide-react";
 import ReservationBox from "./ReservationBox";
 import { useEffect, useState } from "react";
 
@@ -19,6 +12,7 @@ const PropertyDescription = ({
   pricePerNight,
   homeId,
   hostImageUrl,
+  location,
 }: {
   name: string;
   host: string;
@@ -27,6 +21,7 @@ const PropertyDescription = ({
   pricePerNight: number;
   homeId: string;
   hostImageUrl: string;
+  location: string;
 }) => {
   const [isMobile, setIsMobile] = useState(false);
 
@@ -44,12 +39,11 @@ const PropertyDescription = ({
     <div className="flex flex-col md:flex-row flex-wrap px-4 md:px-24 pt-6 md:pt-12 items-center md:justify-between gap-2 md:gap-6 pb-4">
       <div className="flex flex-col w-full md:flex-1 max-w-[420px] min-w-[280px] px-4">
         <h1 className="text-title-sm-bold-mobile sm:text-title-mobile md:text-subheading">
-          {name}
+          {name}, {location}
         </h1>
         <div className="flex justify-between items-center py-4 w-full">
           <div className="flex gap-1 md:gap-2 py-4">
             <button className="btn-user-primary">
-              {/* <CircleUserRound className="w-6" /> */}
               <img
                 src={hostImageUrl}
                 alt={`${host}'s profile`}

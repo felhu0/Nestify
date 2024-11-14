@@ -23,6 +23,7 @@ export default async function HomeDetailsPage({
           amenities={home.amenities}
           pricePerNight={home.pricePerNight}
           homeId={home.id}
+          location={home.location}
         />
       )}
     </div>

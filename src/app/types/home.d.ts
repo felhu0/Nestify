@@ -22,4 +22,5 @@ export type HomeType = {
     description: string;
     amenities: string[];
     pricePerNight: number;
+    location: string;
 }
