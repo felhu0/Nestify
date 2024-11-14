@@ -36,9 +36,9 @@ const Gallery = ({ fetchHome }: GalleryProps) => {
   };
 
   return (
-    <div className="relative flex flex-col justify-center items-center gap-4 md:gap-8 pt-20 px-5 md:px-24">
+    <div className="relative flex flex-col justify-center items-center gap-4 md:gap-8 pt-10 md:pt-20 px-5 md:px-24">
       {isMobile && (
-        <div className="absolute top-24 left-10 z-10">
+        <div className="absolute top-12 left-8 z-10">
           <Link href="/">
             <button className="p-1 rounded-full btn-icon-primary text-link">
               <ArrowBigLeft className="w-6" />
