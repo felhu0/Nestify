@@ -18,6 +18,7 @@ export default async function HomeDetailsPage({
         <PropertyDescription
           name={home.name}
           host={home.host}
+          hostImageUrl={home.hostImageUrl}
           description={home.description}
           amenities={home.amenities}
           pricePerNight={home.pricePerNight}

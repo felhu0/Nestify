@@ -1,10 +1,10 @@
-type HomeCategory =
-    | 'Accessible'
-    | 'Spacious'
-    | 'Apartment'
-    | 'Pet friendly'
-    | 'Close to nature'
-    | 'Near water'
+// type HomeCategory =
+//     | 'Accessible'
+//     | 'Spacious'
+//     | 'Apartment'
+//     | 'Pet friendly'
+//     | 'Close to nature'
+//     | 'Near water'
 
 
 export type HomeType = {
@@ -18,6 +18,7 @@ export type HomeType = {
     nearWater: boolean
     imageUrl: string[];
     host: string;
+    hostImageUrl: string;
     description: string;
     amenities: string[];
     pricePerNight: number;

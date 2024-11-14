@@ -18,6 +18,7 @@ const PropertyDescription = ({
   amenities,
   pricePerNight,
   homeId,
+  hostImageUrl,
 }: {
   name: string;
   host: string;
@@ -25,6 +26,7 @@ const PropertyDescription = ({
   amenities: string[];
   pricePerNight: number;
   homeId: string;
+  hostImageUrl: string;
 }) => {
   const [isMobile, setIsMobile] = useState(false);
 
@@ -46,8 +48,13 @@ const PropertyDescription = ({
         </h1>
         <div className="flex justify-between items-center py-4 w-full">
           <div className="flex gap-1 md:gap-2 py-4">
-            <button className="btn-user-primary p-0 md:p-1.5">
-              <CircleUserRound className="w-6" />
+            <button className="btn-user-primary">
+              {/* <CircleUserRound className="w-6" /> */}
+              <img
+                src={hostImageUrl}
+                alt={`${host}'s profile`}
+                className="w-6 h-6 rounded-full"
+              />
             </button>
             <p className="flex items-center text-body-bold-mobile md:text-body-desktop">
               Hosted by
