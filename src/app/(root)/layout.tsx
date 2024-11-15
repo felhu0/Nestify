@@ -3,6 +3,12 @@ import { Inter } from "next/font/google";
 import AuthContextProvider from "./providers/AuthProvider";
 import { Toaster } from "react-hot-toast";
 
+export const metadata = {
+  title: "Nestify - Find Your Next Stay",
+  description:
+    "Explore accommodations with customizable filters, search options, and featured listings. Discover and book your perfect stay on Nestify.",
+};
+
 const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({

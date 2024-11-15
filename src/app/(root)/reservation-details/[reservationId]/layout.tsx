@@ -4,6 +4,11 @@ import { Toaster } from "react-hot-toast";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 
+export const metadata = {
+  title: "Reservation Details - Nestify",
+  description: "Review your reservation details and complete your booking.",
+};
+
 export default function ReservationDetailsLayout({
   children,
 }: {

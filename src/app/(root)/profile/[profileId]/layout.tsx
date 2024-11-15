@@ -4,6 +4,11 @@ import { Toaster } from "react-hot-toast";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 
+export const metadata = {
+  title: "Profile - Nestify",
+  description: "View your account information and your booking history.",
+};
+
 export default function ProfileLayout({ children }: { children: ReactNode }) {
   return (
     <AuthContextProvider>
