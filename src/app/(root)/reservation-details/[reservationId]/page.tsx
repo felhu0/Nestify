@@ -66,7 +66,6 @@ const ReservationDetailsPage = () => {
       const userId = currentUser.uid;
       const fetchedUser = await getUserById(userId);
 
-      // Call the API route to create a checkout session and save to Firebase
       const response = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -84,7 +83,6 @@ const ReservationDetailsPage = () => {
 
       const { sessionId } = await response.json();
 
-      // Redirect to Stripe Checkout
       if (sessionId) {
         stripe.redirectToCheckout({ sessionId });
       }

@@ -5,7 +5,7 @@ import { CheckoutType } from "@/app/types/booking";
 export async function fetchBooking(userId: string): Promise<CheckoutType[] | null> {
   try {
     const bookingCollectionRef = collection(db, "checkouts");
-    const q = query(bookingCollectionRef, where("userId", "==", userId)); // Använd en fråga om userId är ett fält
+    const q = query(bookingCollectionRef, where("userId", "==", userId));
     const querySnapshot = await getDocs(q);
 
     if (!querySnapshot.empty) {
