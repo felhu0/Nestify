@@ -36,16 +36,15 @@ const Navbar = ({
       .toUpperCase();
   };
 
-  // Kontrollera sessionens giltighet vid sidladdning
   useEffect(() => {
     const sessionExpiry = localStorage.getItem("sessionExpiry");
     const currentTime = Date.now();
 
     if (sessionExpiry && currentTime > Number(sessionExpiry)) {
-      handleLogout(); // Logga ut om sessionen har gått ut
-      setIsSessionValid(false); // Uppdatera till ogiltig session
+      handleLogout();
+      setIsSessionValid(false);
     } else {
-      setIsSessionValid(true); // Sessionen är fortfarande giltig
+      setIsSessionValid(true);
     }
   }, []);
 
@@ -55,7 +54,7 @@ const Navbar = ({
       await signOut(auth);
       const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
       await fetch(`${baseUrl}/api/sessionLogout`, { method: "POST" });
-      localStorage.removeItem("sessionExpiry"); // Rensa session utgångstid från lokal lagring
+      localStorage.removeItem("sessionExpiry");
       window.location.href = "/";
     } catch (error) {
       console.error("Could not log out", error);
@@ -67,10 +66,10 @@ const Navbar = ({
 
   const handleSearch = () => {
     if (onSearchTermChange && applyFilters) {
-      onSearchTermChange(searchInput); // Update the searchTerm in parent component
-      applyFilters([searchInput]); // Apply the filter based on the updated term
-      setSearchInput(""); // Clear the search input field after searching
-      router.push("/"); // Navigate to root to trigger search filter on main page
+      onSearchTermChange(searchInput);
+      applyFilters([searchInput]);
+      setSearchInput("");
+      router.push("/");
     }
   };
 

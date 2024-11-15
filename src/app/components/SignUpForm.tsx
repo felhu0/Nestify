@@ -66,7 +66,6 @@ const SignUpForm = () => {
         password: values.password,
       });
 
-      // Hämta ID-token och skicka till servern för att skapa session-cookie
       const auth = getAuth();
       const idToken = await auth.currentUser?.getIdToken(true);
 
@@ -78,7 +77,6 @@ const SignUpForm = () => {
         });
 
         if (response.ok) {
-          // Spara sessionens utgångstid i localStorage (5 minuter från nu)
           const sessionExpiry = Date.now() + 5 * 60 * 1000; // 5 minutes from now
           localStorage.setItem("sessionExpiry", sessionExpiry.toString());
 

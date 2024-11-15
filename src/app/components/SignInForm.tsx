@@ -35,7 +35,6 @@ const SignInForm = () => {
     try {
       await login(values);
 
-      // Hämta ID-token och skicka till servern för att skapa session-cookie
       const auth = getAuth();
       const idToken = await auth.currentUser?.getIdToken(true);
 
@@ -46,9 +45,7 @@ const SignInForm = () => {
           headers: { "Content-Type": "application/json" },
         });
 
-        // Kontrollera om session-cookie skapades framgångsrikt
         if (response.ok) {
-          // Spara sessionens utgångstid i localStorage (5 minuter från nu)
           const sessionExpiry = Date.now() + 5 * 60 * 1000; // 5 minutes from now
           localStorage.setItem("sessionExpiry", sessionExpiry.toString());
 

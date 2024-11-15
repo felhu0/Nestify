@@ -36,7 +36,6 @@ export const POST = async (req: NextRequest) => {
             const { reservationId, checkIn, checkOut, guests, totalAmount, userId, homeName, homeImage } = metadata;
 
             try {
-                // Spara session-info till Firestore
                 const checkoutDoc = doc(db, "checkouts", session.id);
                 await setDoc(checkoutDoc, {
                   sessionId: session.id,

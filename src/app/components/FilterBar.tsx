@@ -36,39 +36,6 @@ const FilterBar = ({ initialHome = [] }: { initialHome: HomeType[] }) => {
     applyFilters(newFilter ? [newFilter] : []);
   };
 
-  // const applyFilters = (filters: string[]) => {
-  //   if (filters.length === 0) {
-  //     setFilteredHomes(homes);
-  //   } else {
-  //     const filtered = homes.filter((home) =>
-  //       filters.every((filter) => {
-  //         switch (filter) {
-  //           case "Accessible":
-  //             return home.accessible;
-  //           case "Spacious":
-  //             return home.spacious;
-  //           case "Apartment":
-  //             return home.apartment;
-  //           case "Pet friendly":
-  //             return home.petFriendly;
-  //           case "Close to nature":
-  //             return home.closeToNature;
-  //           case "Near water":
-  //             return home.nearWater;
-  //           default:
-  //             return true;
-  //         }
-  //       })
-  //     );
-  //     setFilteredHomes(filtered);
-  //   }
-  // };
-
-  // const updateFilters = (filters: string[]) => {
-  //   applyFilters(filters);
-  // };
-
-  // Apply filters based on both search term and selected filters
   const applyFilters = (filters: string[]) => {
     let filtered = homes;
 
@@ -95,7 +62,6 @@ const FilterBar = ({ initialHome = [] }: { initialHome: HomeType[] }) => {
       );
     }
 
-    // Apply search term
     if (searchTerm) {
       filtered = filtered.filter((home) =>
         home.location.toLowerCase().includes(searchTerm.toLowerCase())
@@ -105,7 +71,6 @@ const FilterBar = ({ initialHome = [] }: { initialHome: HomeType[] }) => {
     setFilteredHomes(filtered);
   };
 
-  // Update filters whenever search term or selectedFilter changes
   useEffect(() => {
     applyFilters(selectedFilter ? [selectedFilter] : []);
   }, [searchTerm, selectedFilter]);
@@ -212,7 +177,6 @@ const FilterBar = ({ initialHome = [] }: { initialHome: HomeType[] }) => {
                 closeFilters={closeFilters}
                 applyFilters={applyFilters}
                 filteredHomesCount={filteredHomes.length}
-                // updateFilters={updateFilters}
                 updateFilters={applyFilters}
               />
             </div>

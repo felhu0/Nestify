@@ -1,7 +1,6 @@
 import { stripe } from "../../../../lib/stripe";
 import { NextRequest, NextResponse } from "next/server";
 
-
 export async function POST(req: NextRequest) {
     try {
       const { totalAmount, reservationId, checkIn, checkOut, guests, userId, homeName, homeImage } = await req.json();
@@ -28,8 +27,6 @@ export async function POST(req: NextRequest) {
         metadata: { reservationId, checkIn, checkOut, guests, totalAmount, userId, homeName, homeImage },
       });
   
-    
-      // Return session ID to the client
       return NextResponse.json({ sessionId: session.id });
     } catch (error) {
       console.error("Error creating checkout session:", error);

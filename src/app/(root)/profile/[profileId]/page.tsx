@@ -14,19 +14,17 @@ export default async function ProfilePage({
 }: {
   params: { profileId: string };
 }) {
-  // Kontrollera sessionscookien
   const sessionCookie = cookies().get("session")?.value;
   if (!sessionCookie) {
     redirect("/sign-in");
   }
 
-  // Verifiera session och hämta användarens ID
   let userId;
+
   try {
     const decodedClaims = await auth.verifySessionCookie(sessionCookie, true);
     userId = decodedClaims.uid;
 
-    // Om användaren försöker komma åt en annan profil, omdirigera
     if (userId !== params.profileId) {
       redirect("/sign-in");
     }

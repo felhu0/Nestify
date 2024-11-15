@@ -15,12 +15,11 @@ const HeroSection = ({
   onSearchTermChange,
   applyFilters,
 }: HeroSectionProps) => {
-  const [searchInput, setSearchInput] = useState(searchTerm || ""); // Initialize with searchTerm
-
+  const [searchInput, setSearchInput] = useState(searchTerm || "");
   const handleSearch = () => {
-    onSearchTermChange(searchInput); // Update searchTerm in parent component
-    applyFilters([searchInput]); // Apply filter based on search input
-    setSearchInput(""); // Clear the search input field after searching
+    onSearchTermChange(searchInput);
+    applyFilters([searchInput]);
+    setSearchInput("");
   };
   return (
     <>
@@ -45,8 +44,8 @@ const HeroSection = ({
               type="text"
               placeholder="Search..."
               value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)} // Update local state
-              onKeyDown={(e) => e.key === "Enter" && handleSearch()} // Search on Enter
+              onChange={(e) => setSearchInput(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleSearch()}
               className="w-full h-full p-2 pl-2 focus:outline-none placeholder"
             />
           </div>
