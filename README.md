@@ -6,25 +6,25 @@ Open [https://nestify-roan.vercel.app](https://nestify-roan.vercel.app) to view 
 
 ## Features
 
-- Search Bar: Search for accommodations based on location.
+- Search Bar - Search for accommodations based on location.
 
-- Filters: Filter by wheelchair accessibility, pet-friendliness, proximity to water or nature. Results update in real time.
+- Filters - Filter by wheelchair accessibility, pet-friendliness, proximity to water or nature. Results update in real time.
 
-- Overview: The homepage displays cards with the accommodation's name, location, and specifications. Data is fetched at page load using SSR.
+- Overview - The homepage displays cards with the accommodation's name, location, and specifications. Data is fetched at page load using SSR.
 
-- Login and Registration: Secure authentication with Firebase and session management on the server side.
+- Login and Registration - Secure authentication with Firebase and session management on the server side.
 
-- Accommodation Details: Each accommodation has a dedicated page with images, descriptions, pricing, and specifications.
+- Accommodation Details - Each accommodation has a dedicated page with images, descriptions, pricing, and specifications.
 
-- Profile and Booking History: Users can view their profile and booking history.
+- Profile and Booking History - Users can view their profile and booking history.
 
-- Booking System: Users can select check-in and check-out dates, specify the number of guests, and view the total cost before confirming the booking.
+- Booking System - Users can select check-in and check-out dates, specify the number of guests, and view the total cost before confirming the booking.
 
-- Payment System: Stripe securely handles payments and sends status updates via webhooks.
+- Payment System - Stripe securely handles payments and sends status updates via webhooks.
 
-- Responsive Design: Optimized for all devices.
+- Responsive Design - Optimized for all devices.
 
-- SEO Optimization: SSR and metadata enhance visibility in search results. Robots.txt and sitemap.xml are used to guide search engine crawlers.
+- SEO Optimization - SSR and metadata enhance visibility in search results. Robots.txt and sitemap.xml are used to guide search engine crawlers.
 
 ## Technologies Used
 
