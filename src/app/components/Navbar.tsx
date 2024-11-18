@@ -36,6 +36,7 @@ const Navbar = ({
       .toUpperCase();
   };
 
+  // Check session expiry and log out user if session has expired
   useEffect(() => {
     const sessionExpiry = localStorage.getItem("sessionExpiry");
     const currentTime = Date.now();

@@ -1,6 +1,7 @@
 import { stripe } from "../../../../lib/stripe";
 import { NextRequest, NextResponse } from "next/server";
 
+//Handles the creation of a Stripe checkout session for a reservation.
 export async function POST(req: NextRequest) {
     try {
       const { totalAmount, reservationId, checkIn, checkOut, guests, userId, homeName, homeImage } = await req.json();

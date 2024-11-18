@@ -20,7 +20,7 @@ const FilterBar = ({ initialHome = [] }: { initialHome: HomeType[] }) => {
   const [selectedFilter, setSelectedFilter] = useState<string | null>(null);
   const [showFilters, setShowFilters] = useState(false);
   const [filteredHomes, setFilteredHomes] = useState<HomeType[]>(initialHome);
-  const [searchTerm, setSearchTerm] = useState(""); // State for search term
+  const [searchTerm, setSearchTerm] = useState("");
 
   const toggleFilters = () => {
     setShowFilters(!showFilters);
@@ -36,9 +36,11 @@ const FilterBar = ({ initialHome = [] }: { initialHome: HomeType[] }) => {
     applyFilters(newFilter ? [newFilter] : []);
   };
 
+  // Applies filters to the list of homes based on selected filters and search term
   const applyFilters = (filters: string[]) => {
     let filtered = homes;
 
+    // Check if any filters are selected; skip filtering if none are selected.
     if (filters.length > 0) {
       filtered = filtered.filter((home) =>
         filters.every((filter) => {
@@ -62,6 +64,7 @@ const FilterBar = ({ initialHome = [] }: { initialHome: HomeType[] }) => {
       );
     }
 
+    // Apply additional filtering based on the user's search term.
     if (searchTerm) {
       filtered = filtered.filter((home) =>
         home.location.toLowerCase().includes(searchTerm.toLowerCase())
@@ -71,6 +74,7 @@ const FilterBar = ({ initialHome = [] }: { initialHome: HomeType[] }) => {
     setFilteredHomes(filtered);
   };
 
+  // Keep the filtered results updated in real time when the search term or selected filter changes.
   useEffect(() => {
     applyFilters(selectedFilter ? [selectedFilter] : []);
   }, [searchTerm, selectedFilter]);

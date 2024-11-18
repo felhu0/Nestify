@@ -15,7 +15,7 @@ type SessionMetadata = {
     homeImage: string;
   };
   
-
+//The endpoint handles Stripe webhooks, verifies payments, and updates booking data in Firestore in real-time.
 export const POST = async (req: NextRequest) => {
     try {
         const rawBody = await req.text();

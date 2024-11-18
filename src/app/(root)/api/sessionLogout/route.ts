@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
 
+//Handles the logout process by clearing the session cookie and redirecting to the sign-in page.
+// Ensures the client's login status is synced with the server by removing the session.
+
 export async function POST() {
  
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;

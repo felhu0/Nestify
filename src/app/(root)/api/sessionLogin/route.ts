@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "../../../../../firebaseAdmin.config";
 
+// Ensures the client's login status is synced with the server by setting a secure session cookie.
+// Handles the creation of a Firebase session cookie for user authentication.
+
 export async function POST(req: NextRequest) {
     try {
       const { idToken } = await req.json();

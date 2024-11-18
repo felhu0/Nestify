@@ -27,6 +27,7 @@ const ReservationDetailsPage = () => {
   const checkOut = searchParams.get("checkOut");
   const guests = searchParams.get("guests");
 
+  // Fetch home details from Firebase Firestore based on reservationId
   useEffect(() => {
     const fetchHomeDetails = async () => {
       if (reservationId) {
@@ -56,6 +57,7 @@ const ReservationDetailsPage = () => {
 
   const totalAmount = calculateTotalAmount();
 
+  // Handle the payment process by creating a Stripe session and redirecting to Stripe Checkout
   const handlePayment = async () => {
     const stripe = await stripePromise;
     if (!stripe || !totalAmount || !reservationId || !user) return;
@@ -83,6 +85,7 @@ const ReservationDetailsPage = () => {
 
       const { sessionId } = await response.json();
 
+      // Redirect the user to Stripe Checkout if a session was successfully created
       if (sessionId) {
         stripe.redirectToCheckout({ sessionId });
       }
